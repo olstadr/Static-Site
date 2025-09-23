@@ -11,34 +11,57 @@ class BlockType(Enum):
 def block_to_block_type(block):
     if block.startswith(("# ", "## ", "### ", "#### ", "##### ", "###### ")):
         return BlockType.heading
-    if block.startswith("```") and block.endswith("```"):
+
+    lines = block.splitlines()
+
+    if len(lines) == 1:
+        line = lines[0].strip()
+        if line.startswith("```") and line.endswith("```") and len(line) >= 6:
+            return BlockType.code
+    elif len(lines) >= 2 and lines[0].strip() == "```" and lines[-1].strip() == "```":
         return BlockType.code
-    if block == "":
-        return BlockType.paragraph
-    split_block = block.splitlines()
-    q = True
-    for line in split_block:
-        if not line.startswith(">"):
-            q = False
+
+    has_quote_line = False
+    is_quote = True
+    for l in lines:
+        s = l.strip()
+        if s == "":
+            continue
+        if s.startswith(">"):
+            has_quote_line = True
+        else:
+            is_quote = False
             break
-    if q:
+    if is_quote and has_quote_line:
         return BlockType.quote
-    u = True
-    for line in split_block:
-        if not line.startswith("- "):
-            u = False
+
+    is_ul, has_item = True, False
+    for l in lines:
+        ls = l.lstrip()
+        if ls == "":
+            continue
+        if ls.startswith("- ") or ls.startswith("* "):
+            has_item = True
+        else:
+            is_ul = False
             break
-    if u:
+    if is_ul and has_item:
         return BlockType.unordered_list
-    i = 1
-    o = True
-    for line in split_block:
-        if not line.startswith(f"{i}. "):
-            o = False
+
+    expected = 1
+    is_ol, has_item = True, False
+    for l in lines:
+        ls = l.lstrip()
+        if ls == "":
+            continue
+        prefix = f"{expected}. "
+        if ls.startswith(prefix):
+            has_item = True
+            expected += 1
+        else:
+            is_ol = False
             break
-        i += 1
-    if o:
+    if is_ol and has_item:
         return BlockType.ordered_list
-    else:
-        return BlockType.paragraph
-        
+
+    return BlockType.paragraph
