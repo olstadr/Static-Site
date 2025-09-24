@@ -1,5 +1,6 @@
 import os
 import shutil
+from generate_page import generate_page
 
 def copy(source, destination):
     if os.path.exists(destination) == True:
@@ -18,7 +19,15 @@ def copy(source, destination):
             copy(src_path, dst_path)
 
 def main():
+    public_dir = "public"
+
+    if os.path.exists(public_dir):
+        shutil.rmtree(public_dir)
+    os.makedirs(public_dir, exist_ok=True)
+
     copy("static", "public")
+
+    generate_page("content/index.md", "template.html", os.path.join(public_dir, "index.html"))
 
 if __name__ == "__main__":
     main()
