@@ -1,7 +1,7 @@
 import unittest
 
-from textnode import TextType, TextNode
-from split_nodes import split_nodes_image, split_nodes_link
+from .textnode import TextType, TextNode
+from .split_nodes import split_nodes_image, split_nodes_link
 
 
 

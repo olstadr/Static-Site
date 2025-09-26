@@ -1,6 +1,6 @@
-from textnode import TextType, TextNode
-from split_nodes import split_nodes_image, split_nodes_link
-from split_delimiter import split_nodes_delimiter
+from .textnode import TextType, TextNode
+from .split_nodes import split_nodes_image, split_nodes_link
+from .split_delimiter import split_nodes_delimiter
 
 def text_to_textnodes(text):
     nodes = [TextNode(text, TextType.PLAIN_TEXT)]

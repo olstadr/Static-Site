@@ -1,5 +1,6 @@
 import unittest
-from markdown_to_html_node import markdown_to_html_node, text_to_children, block_to_html_node
+
+from .markdown_to_html_node import markdown_to_html_node, text_to_children, block_to_html_node
 
 class TestMarkdownToHtmlNode(unittest.TestCase):
     def test_paragraphs(self):

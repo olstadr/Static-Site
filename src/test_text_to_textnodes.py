@@ -1,7 +1,7 @@
 import unittest
 
-from textnode import TextNode, TextType
-from text_to_textnodes import text_to_textnodes
+from .textnode import TextNode, TextType
+from .text_to_textnodes import text_to_textnodes
 
 class TestTextToTextNodes(unittest.TestCase):
     def test_text_only(self):

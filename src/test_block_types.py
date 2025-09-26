@@ -1,6 +1,6 @@
 import unittest
 
-from block_types import block_to_block_type, BlockType
+from .block_types import block_to_block_type, BlockType
 
 class TestBlockToBlockType(unittest.TestCase):
     def test_heading_valid_levels(self):

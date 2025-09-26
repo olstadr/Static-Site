@@ -1,7 +1,7 @@
 import re
 import unittest
 
-from extract import extract_markdown_images, extract_markdown_links
+from .extract import extract_markdown_images, extract_markdown_links
 
 
 

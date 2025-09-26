@@ -1,6 +1,6 @@
 import os
 import shutil
-from generate_page import generate_page
+from .generate_page import generate_pages_recursive, generate_page
 
 def copy(source, destination):
     if os.path.exists(destination) == True:
@@ -27,7 +27,7 @@ def main():
 
     copy("static", "public")
 
-    generate_page("content/index.md", "template.html", os.path.join(public_dir, "index.html"))
+    generate_pages_recursive("content", "template.html", "public")
 
 if __name__ == "__main__":
     main()
